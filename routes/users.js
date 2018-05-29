@@ -40,7 +40,7 @@ router.get('/home', function (req, res) {
     console.log(prices);
     var keyNames = Object.keys(prices);
 console.log(keyNames);
-
+console.log("I have got prices values :D ");
     res.render('index', {username: username, coinlist: keyNames, prices: prices});
   }).catch(console.error);
 
