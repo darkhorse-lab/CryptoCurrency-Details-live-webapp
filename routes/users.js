@@ -10,6 +10,7 @@ const cc = require('cryptocompare');
 // var Coins = {BTC:'BTC'}, {ETH:'ETH'}];
 var coins = ['BTC', 'ETH', 'XRP', 'BCH', 'LTC', 'EOS', 'ADA', 'XLM', 'NEO', 'MIOTA', 'XMR', 'DASH', 'TRX', 'USDT', 'XEM', 'BNB', 'ETC', 'VEN', 'QTUM', 'XVG', 'LSK', 'OMG', 'ICX', 'NANO'];
 
+
 var User = require('../models/user');
 
 
@@ -20,24 +21,27 @@ router.get('/register', function(req, res){
 
 // HomePage
 router.get('/home', function (req, res) {
-    var name = req.user.name;
-    var username = req.user.username;
+    var username = "__";
+    username = req.user.username;
 
     User.find({
         username: username
       }, function(err, results) {
         if (err) return console.error(err);
-        
+
         console.log(results);
 
       });
 
 
-    name = "mehadi";
-    console.log("---------->>name: "+name);
   cc.priceMulti(coins, ['USD', 'EUR'])
   .then(prices => {
-    res.render('index', {username: name, coinlist: coins, prices: prices});
+
+    console.log(prices);
+    var keyNames = Object.keys(prices);
+console.log(keyNames);
+
+    res.render('index', {username: username, coinlist: keyNames, prices: prices});
   }).catch(console.error);
 
 });
@@ -62,7 +66,7 @@ router.post('/register', function(req, res){
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password2', 'Passwords do not match!!').equals(req.body.password);
 
-
+    ERRORS="";
     var errors = req.validationErrors();
     if(errors){
         res.render('register', {
