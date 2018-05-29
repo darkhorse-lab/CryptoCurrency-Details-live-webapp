@@ -69,19 +69,7 @@
 
  <!-- == Main body starts here == -->
 
-<div class="container" style="background-color: black; color: white;">
-  <%var i;%>
-  <% for (var key in coinlist) { %>
-      <%i=coinlist[key]%>
-      <h2><%=prices[i]['USD']%></h2>
-    <% } %>
-    <div class="row" id="parse_div">
-      <!-- <h1>Bitcoin price in USD: {{obj.BTC.USD}} and in EUR: {{obj.BTC.EUR}}</h1> -->
-    </div>
-</div>
-
-
-  <center><h3>Top 100 Cryptocurrencies by Market Capitalization</h3></center>
+  <center><h3>Top 20 Cryptocurrencies by Market Capitalization</h3></center>
 
   <table class="table table-hover table-dark" style="margin-top: 20px;">
     <thead>
@@ -96,29 +84,24 @@
     </thead>
 
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
+
+      <% var i; var count=1; var img_no=0; %>
+
+      <% for (var key in coinlist) { %>
+          <%i= coinlist[key] %>
+          <% img_no = img_no % 5; %>
+<tr>
+  <th scope="row"><%= count %></th>
+  <td>NAME</td>
+  <td><%= prices[i]['USD']['MKTCAP'] %></td>
+  <td><%= prices[i]['USD']['PRICE'] %></td>
+  <td>--</td>
+  <td><a href=""><img src="/img/fig<%=img_no%>.png"></a></td>
+</tr>
+          <% count = count+1; img_no = img_no+1;%>
+          <% if(count == 21){ break;} %>
+      <% } %>
+
     </tbody>
   </table>
 

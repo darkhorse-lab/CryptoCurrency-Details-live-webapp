@@ -1,0 +1,60 @@
+
+<div class="container" style="background-color: black; color: white;">
+  <%var i;%>
+  <% for (var key in coinlist) { %>
+      <%i=coinlist[key]%>
+      <h2><%=prices[i]['USD']%></h2>
+    <% } %>
+    <div class="row" id="parse_div">
+      <!-- <h1>Bitcoin price in USD: {{obj.BTC.USD}} and in EUR: {{obj.BTC.EUR}}</h1> -->
+    </div>
+</div>
+
+
+  <center><h3>Top 100 Cryptocurrencies by Market Capitalization</h3></center>
+
+  <table class="table table-hover table-dark" style="margin-top: 20px;">
+    <thead>
+      <tr>
+        <th scope="col"><a href=""> # </a></th>
+        <th scope="col"><a href=""> Name </a></th>
+        <th scope="col"><a href=""> Market Capacity </a></th>
+        <th scope="col"><a href=""> Price </a></th>
+        <th scope="col"><a href=""> Prediction </a></th>
+        <th scope="col"><a href=""> Price Graph </a></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+      <footer class="footer">
+            <center>&copy; CryptoPriceSite CSE SUST.</center>
+      </footer>
