@@ -32,10 +32,10 @@
                               <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
                               <li class="nav-item"><a class="nav-link" href="/users/logout">Logout</a></li>
                               <% } %>
-                          
+
                               <li class="nav-item"><a class="nav-link" href="/users/login">Login</a></li>
                               <li class="nav-item"><a class="nav-link" href="/users/register">Register</a></li>
-                          
+
                       </ul>
                   </div>
               </div>
@@ -70,10 +70,10 @@
  <!-- == Main body starts here == -->
 
 <div class="container" style="background-color: black; color: white;">
-
+  <%var i;%>
   <% for (var key in coinlist) { %>
-      <h4>  <%console.log(prices.coinlist[key]) %> <h4>
-        
+      <%i=coinlist[key]%>
+      <h2><%=prices[i]['USD']%></h2>
     <% } %>
     <div class="row" id="parse_div">
       <!-- <h1>Bitcoin price in USD: {{obj.BTC.USD}} and in EUR: {{obj.BTC.EUR}}</h1> -->
@@ -122,7 +122,7 @@
     </tbody>
   </table>
 
-      
+
 
 
       <footer class="footer">
