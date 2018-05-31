@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
-mongoose.connect('mongodb://localhost/CryptoPriceSite');
 
 var db = mongoose.connection;
 
@@ -51,8 +50,3 @@ module.exports.getUserByID = function(id, callback){
 }
 
 // module.exports.checkErrors = function()
-
-
-
-
-
