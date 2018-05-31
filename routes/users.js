@@ -3,16 +3,16 @@ var router = express.Router();
 var User = require('../models/user'); // Model import where "user.js" is a mongoose Model
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+
+var User = require('../models/user');
 // ............
 global.fetch = require('node-fetch');
 const cc = require('cryptocompare');
 
-// var Coins = {BTC:'BTC'}, {ETH:'ETH'}];
-var coins = ['BTC', 'ETH', 'XRP', 'BCH', 'LTC', 'EOS', 'ADA', 'XLM', 'NEO', 'MIOTA', 'XMR', 'DASH', 'TRX', 'USDT', 'XEM', 'BNB', 'ETC', 'VEN', 'QTUM', 'XVG', 'LSK', 'OMG', 'ICX', 'NANO'];
-
-
-var User = require('../models/user');
-
+var coins = ['BTC', 'ETH', 'XRP', 'BCH',
+'EOS', 'LTC', 'ADA', 'XLM', 'MIOTA', 'TRX', 'NEO', 'USDT', 'XMR', 'DASH', 'XEM', 'VEN', 'ETC', 'BNB', 'QTUM', 'BCN', 'OMG', 'ZEC', 'ICX', 'LSK', 'ONT', 'ZIL', 'AE', 'BTG', 'DCR', 'ZRX', 'BTM', 'STEEM', 'XVG', 'NANO',
+'BTS', 'SC', 'PPT', 'RHOC', 'WAN', 'MKR', 'BTCP', 'GNT', 'BCD', 'STRAT', 'REP', 'WAVES', 'DOGE', 'XIN', 'WICC', 'IOST'
+];
 
 // Register
 router.get('/register', function(req, res){
@@ -24,24 +24,39 @@ router.get('/home', function (req, res) {
     var username = "__";
     username = req.user.username;
 
+    //Data Fetch From Database
     User.find({
         username: username
       }, function(err, results) {
         if (err) return console.error(err);
-
         console.log(results);
-
       });
 
-
-  cc.priceMulti(coins, ['USD', 'EUR'])
+  cc.priceFull(coins, ['USD', 'EUR'])
   .then(prices => {
 
-    console.log(prices);
-    var keyNames = Object.keys(prices);
-console.log(keyNames);
+    cc.coinList()
+    .then(coinList => {
 
-    res.render('index', {username: username, coinlist: keyNames, prices: prices});
+    var keyNames = Object.keys(prices);
+    var coinnames = [];
+
+for (var i=0; i<keyNames.length; i++){
+  var val = keyNames[i];
+  try {
+      // console.log(coinList.Data[val]['FullName']);
+      coinnames.push(coinList.Data[val]['FullName']);
+    }
+    catch(err) {
+        // console.log(val);
+        coinnames.push(val);
+    }
+}
+
+      res.render('index', {username: username, coinlist: keyNames, prices: prices, coinnames: coinnames});
+    })
+    .catch(console.error);
+
   }).catch(console.error);
 
 });
