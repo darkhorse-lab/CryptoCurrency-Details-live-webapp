@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
-var db = mongoose.connection;
-
 // User Schema creation ........................................
 var UserSchema = mongoose.Schema({
     username:{
@@ -20,6 +18,14 @@ var UserSchema = mongoose.Schema({
     }
 });
 
+// //Data Fetch From Database
+// User.find({
+//     username: username
+//   }, function(err, results) {
+//     if (err) return console.error(err);
+//     console.log(results);
+//   });
+
 
 var User = module.exports = mongoose.model('User', UserSchema);
 
@@ -31,6 +37,7 @@ module.exports.createUser = function(newUser, callback){
             newUser.save(callback);
         });
     });
+    newUser.save(callback);
 }
 
 module.exports.getUserByUsername = function(username, callback){

@@ -87,57 +87,59 @@
 
       <% var i; var count=1; var img_no=0; %>
 
-      <% for (var key in coinlist) { %>
-          <%i= coinlist[key] %>
-          <% img_no = img_no % 5; %>
-<%
-var marketcap,nStr,price_value;
-nStr = prices[i]['USD']['MKTCAP'];
-price_value = prices[i]['USD']['PRICE'];
-nStr += '';
-price_value += '';
+<% for (var key in coinlist) { %>
+      <%i= coinlist[key] %>
+      <% img_no = img_no % 5; %>
+      <%
+        var marketcap,nStr,price_value;
+        nStr = prices[i]['USD']['MKTCAP'];
+        price_value = prices[i]['USD']['PRICE'];
+        nStr += '';
+        price_value += '';
 
-var x,y;
+        var x,y;
 
-x = nStr.split('.');
-y = price_value.split('.');
+        x = nStr.split('.');
+        y = price_value.split('.');
 
-var x1,y1;
+        var x1,y1;
 
-x1 = x[0];
-y1 = y[0];
+        x1 = x[0];
+        y1 = y[0];
 
-var x2,y2;
+        var x2,y2;
 
-x2 = x.length > 1 ? '.' + x[1] : '';
-y2 = y.length > 1 ? '.' + y[1] : '';
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        y2 = y.length > 1 ? '.' + y[1] : '';
 
-var rgx = /(\d+)(\d{3})/;
-while (rgx.test(x1)) {
- x1 = x1.replace(rgx, '$1' + ',' + '$2');
-}
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+         x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
 
-rgx = /(\d+)(\d{3})/;
-while (rgx.test(y1)) {
- y1 = y1.replace(rgx, '$1' + ',' + '$2');
-}
+        rgx = /(\d+)(\d{3})/;
+        while (rgx.test(y1)) {
+         y1 = y1.replace(rgx, '$1' + ',' + '$2');
+        }
 
-marketcap =  x1 + x2;
-price_value = y1 + y2;
+        marketcap =  x1 + x2;
+        price_value = y1 + y2;
 
-%>
+      %>
 
-<tr>
-  <th scope="row"><%= count %></th>
-  <td><%= coinnames[count-1] %></td>
-  <td>$<%= marketcap %></td>
-  <td>$<%= price_value %></td>
-  <td>--</td>
-  <td><a href=""><img src="/img/fig<%=img_no%>.png" style="border: 2px solid green;"></a></td>
-</tr>
-          <% count = count+1; img_no = img_no+1;%>
-          <% if(count == 21){ break;} %>
-      <% } %>
+      <tr>
+        <th scope="row"><%= count %></th>
+        <td><%= coinnames[count-1] %></td>
+        <td>$<%= marketcap %></td>
+        <td>$<%= price_value %></td>
+        <td>--</td>
+        <td><a href="/users/chartshow"><img src="/img/fig<%=img_no%>.png" style="border: 2px solid green;"></a></td>
+      </tr>
+
+      <% count = count+1; img_no = img_no+1;%>
+      <% if(count == 21){ break;} %>
+
+<% } %>
 
     </tbody>
   </table>
