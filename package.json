@@ -27,6 +27,7 @@
     "node-fetch": "^2.1.2",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "python-shell": "^0.5.0"
   }
 }

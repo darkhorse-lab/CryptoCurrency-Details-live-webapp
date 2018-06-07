@@ -11,7 +11,11 @@
 <body>
 </body>
 
-<div id="container" style="height: 400px"></div>
+  <div id="container" style="height: 400px"></div>
+  <div class="container">
+    <h1>Value pass from route to script tag ...</h1>
+    <%= prices %>
+  </div>
 
 <script>
 
@@ -21,9 +25,8 @@
     var data = [{
         data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
     }];
-//
-// var catg = <%= specific_coin.datetime %>;
-// var data = <%= specific_coin.price %>;
+
+console.log(<%=ck_val%>);
 
 Highcharts.chart('container',{
     chart: {
