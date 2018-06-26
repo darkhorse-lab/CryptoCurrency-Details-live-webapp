@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Checking Highchart</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+</body>
+
+<div id="container" style="height: 400px"></div>
+
+<script>
+
+    var catg = {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    };
+    var data = [{
+        data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+    }];
+//
+// var catg = <%= specific_coin.datetime %>;
+// var data = <%= specific_coin.price %>;
+
+Highcharts.chart('container',{
+    chart: {
+        type: 'line',
+        zoomType: 'x',
+        panning: true,
+        panKey: 'shift'
+    },
+    title: {
+        text: 'CryptoCurrency Price Chart'
+    },
+    subtitle: {
+        text: ''
+    },
+
+    xAxis: catg,
+    series: data
+});
+
+</script>
+
+</html>

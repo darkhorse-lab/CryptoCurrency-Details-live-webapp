@@ -1,17 +1,27 @@
 var express = require('express');
+
+var app = express();
+var constants = require('constants');
+var constant = require('./config/constants');
+
+var port = process.env.PORT || 8042;
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash = require('connect-flash');
 var path = require('path');
+
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressValidator = require('express-validator');
-var flash = require('connect-flash');
 var session = require('express-session');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/loginapp');
-var db = mongoose.connection;
+var dateFormat = require('dateformat');
+var now = new Date();
+
+/***************Mongodb configuratrion********************/
+var mongoose = require('mongoose');
+var configDB = require('./config/database.js');
+//configuration ===============================================================
+mongoose.connect(configDB.url); // connect to our database
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -19,7 +29,7 @@ var users = require('./routes/users');
 //Init App
 var app = express(); // Only we have to 'set' view engine
                      // otherwise 'use' some folder/modules
-                     // for this we have to use: 
+                     // for this we have to use:
                      // app.set(), app.use()
 
 //View Engine
@@ -43,28 +53,28 @@ app.use(session({
 }));
 
 
-// Express Validator
-app.use(expressValidator({
-  errorFormatter: function(param, msg, value) {
-      var namespace = param.split('.')
-      , root    = namespace.shift()
-      , formParam = root;
-
-    while(namespace.length) {
-      formParam += '[' + namespace.shift() + ']';
-    }
-    return {
-      param : formParam,
-      msg   : msg,
-      value : value
-    };
-  }
-}));
+// // Express Validator
+// app.use(expressValidator({
+//   errorFormatter: function(param, msg, value) {
+//       var namespace = param.split('.')
+//       , root    = namespace.shift()
+//       , formParam = root;
+//
+//     while(namespace.length) {
+//       formParam += '[' + namespace.shift() + ']';
+//     }
+//     return {
+//       param : formParam,
+//       msg   : msg,
+//       value : value
+//     };
+//   }
+// }));
 
 // Passport init
+require('./config/passport')(passport); // pass passport for configuration
 app.use(passport.initialize());
 app.use(passport.session());
-
 // Connect Flash
 app.use(flash());  // To set global session value ..................................
 
@@ -79,7 +89,12 @@ next();
 });
 
 app.use('/', routes);  // routes for HomePage
+// app.use(app.router);
+// routes.initialize(app);
 app.use('/users', users);
+// load all routes and pass in our app and fully configured passport
+require('./config/routes.js')(app, passport);
+
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));
@@ -88,5 +103,13 @@ app.listen(app.get('port'), function(){
 	console.log('Server started on port '+app.get('port'));
 });
 
+// //catch 404 and forward to error handler
+// app.use(function (req, res, next) {
+//     res.status(404).render('404', {title: "Sorry, page not found", session: req.sessionbo});
+// });
+//
+// app.use(function (req, res, next) {
+//     res.status(500).render('404', {title: "Sorry, page not found"});
+// });
 
 exports = module.exports = app;
