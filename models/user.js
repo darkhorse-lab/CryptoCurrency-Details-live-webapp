@@ -15,17 +15,11 @@ var UserSchema = mongoose.Schema({
     },
     name: {
         type: String
+    },
+    approved:{
+      type: Boolean
     }
 });
-
-// //Data Fetch From Database
-// User.find({
-//     username: username
-//   }, function(err, results) {
-//     if (err) return console.error(err);
-//     console.log(results);
-//   });
-
 
 var User = module.exports = mongoose.model('User', UserSchema);
 
@@ -42,6 +36,11 @@ module.exports.createUser = function(newUser, callback){
 
 module.exports.getUserByUsername = function(username, callback){
     var query = {username: username};
+    User.findOne(query, callback);
+}
+
+module.exports.getUserByEmail = function(email, callback){
+    var query = {email: email};
     User.findOne(query, callback);
 }
 

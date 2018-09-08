@@ -2,9 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 // Homepage
-router.get('/', ensureAuthenticated, function(req, res){
+router.get('/', function(req, res){
     res.redirect('/users/home');
 });
+
+// router.get('/', ensureAuthenticated, function(req, res){
+//     res.redirect('/users/home');
+// });
 
 function ensureAuthenticated(req, res, next){
     req.flash('user',req.session.user);

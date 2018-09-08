@@ -1,19 +1,3 @@
+const endpoint = 'https://min-api.cryptocompare.com/data/histoday?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym='+ ticker.toUpperCase() +'&limit=365&tryConversion=false&tsym=' + currency.toUpperCase();
 
-price_value = prices[i]['USD']['PRICE'];
-price_value += '';
-
-var y;
-
-y = price_value.split('.');
-
-var y1,y2;
-
-y1 = y[0];
-y2 = y.length > 1 ? '.' + y[1] : '';
-
-var rgx = /(\d+)(\d{3})/;
-while (rgx.test(y1)) {
- y1 = y1.replace(rgx, '$1' + ',' + '$2');
-}
-
-price_value = y1 + y2;
+https://min-api.cryptocompare.com/data/histoday?aggregate=1&e=CCCAGG&extraParams=CryptoCompare&fsym=BTC&limit=365&tryConversion=false&tsym=USD;
