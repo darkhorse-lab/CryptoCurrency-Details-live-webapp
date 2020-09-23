@@ -1,1 +1,1 @@
-There haven't given node_modules folder for heavy weight. So, who wants to run this project need to install the all node npm modules.
+A simple crypto-currency price monitoring webisite
